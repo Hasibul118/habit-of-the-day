@@ -100,8 +100,8 @@ function Timer() {
 
   return (
     <div>
-      <h1 style={{ marginBottom: "0", paddingTop: "30px" }}>Pomodoro Timer</h1>
-      <p style={{ marginTop: "5px", marginBottom: "40px", fontSize: "16px" }}>
+      <h1 style={{ marginBottom: "12px", paddingTop: "32px", fontSize: "40px" }}>Pomodoro Timer</h1>
+      <p style={{ marginTop: "5px", marginBottom: "40px", fontSize: "18px" }}>
         Attaining your utmost productivity
       </p>
       <CircularProgressbar
