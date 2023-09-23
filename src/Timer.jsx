@@ -6,6 +6,8 @@ import SettingsButton from "./SettingsButton";
 import {useContext, useState, useEffect, useRef} from "react";
 import SettingsContext from "./SettingsContext";
 
+import Icon from '/favicon.ico'; 
+
 const red = 'rgb(255, 0, 0, 0.9)';
 const green = '#4aec8c';
 
@@ -25,17 +27,47 @@ function Timer() {
     setSecondsLeft(secondsLeftRef.current);
   }
 
+  const showNotification = () => {
+    // Play a sound
+    const audio = new Audio('/notification.mp3');
+    audio.play();
+  
+    if (Notification.permission === 'granted') {
+      const notificationOptions = {
+        icon: Icon,
+      };
+  
+      new Notification('Your timer has ended!', notificationOptions);
+  
+    } else if (Notification.permission !== 'denied') {
+      Notification.requestPermission().then((permission) => {
+        if (permission === 'granted') {
+          showNotification();
+        }
+      });
+    }
+  };
+  
+
   useEffect(() => {
+
+    if (!("Notification" in window)) {
+      console.log("Browser does not support desktop notification");
+    } else {
+      Notification.requestPermission();
+    }
 
     function switchMode() {
       const nextMode = modeRef.current === 'work' ? 'break' : 'work';
       const nextSeconds = (nextMode === 'work' ? settingsInfo.workMinutes : settingsInfo.breakMinutes) * 60;
 
-      setMode(nextMode);
+      setMode(nextMode)
       modeRef.current = nextMode;
 
       setSecondsLeft(nextSeconds);
       secondsLeftRef.current = nextSeconds;
+
+      showNotification();
     }
 
     secondsLeftRef.current = settingsInfo.workMinutes * 60;
@@ -66,8 +98,8 @@ function Timer() {
 
   return (
     <div>
-      <h1 style={{marginBottom: '0'}}>Pomodoro Timer</h1>
-      <p style={{marginTop: '5px', marginBottom: '40px', fontWeight: '700', textDecoration: 'underline'}}>Attaining your utmost productivity</p>
+      <h1 style={{marginBottom: '0', paddingTop: '30px'}}>Pomodoro Timer</h1>
+      <p style={{marginTop: '5px', marginBottom: '40px', fontSize:'16px'}}>Attaining your utmost productivity</p>
       <CircularProgressbar
         value={percentage}
         text={minutes + ':' + seconds}

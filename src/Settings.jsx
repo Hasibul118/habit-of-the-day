@@ -9,7 +9,7 @@ function Settings() {
   const settingsInfo = useContext(SettingsContext);
   return(
     <div style={{textAlign:'left'}}>
-      <label>work: {settingsInfo.workMinutes}:00</label>
+      <label>work: {settingsInfo.workMinutes} min</label>
       <ReactSlider
         className={'slider'}
         thumbClassName={'thumb'}
@@ -17,9 +17,9 @@ function Settings() {
         value={settingsInfo.workMinutes}
         onChange={newValue => settingsInfo.setWorkMinutes(newValue)}
         min={1}
-        max={120}
+        max={180}
       />
-      <label>break: {settingsInfo.breakMinutes}:00</label>
+      <label>break: {settingsInfo.breakMinutes} min</label>
       <ReactSlider
         className={'slider green'}
         thumbClassName={'thumb'}
@@ -27,7 +27,7 @@ function Settings() {
         value={settingsInfo.breakMinutes}
         onChange={newValue => settingsInfo.setBreakMinutes(newValue)}
         min={1}
-        max={120}
+        max={60}
       />
       <div style={{textAlign:'center', marginTop:'20px'}}>
         <BackButton onClick={() => settingsInfo.setShowSettings(false)} />
