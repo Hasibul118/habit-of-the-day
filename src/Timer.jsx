@@ -9,7 +9,7 @@ import SettingsContext from "./SettingsContext";
 import Icon from "/favicon.ico";
 
 const red = "rgb(255, 0, 0, 0.9)";
-const green = "#4aec8c";
+const green = "#00c04b";
 
 const showNotification = () => {
   // Play a sound
